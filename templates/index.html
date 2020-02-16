@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="hero-text">
+      <h2>Click speak Say something.....Anything!</h2>
+    </div>
+    
+    <div class="speech">
+      <!-- <button type="button" name="button"></button> -->
+      <button id='btnGiveCommand' type="button" class="btn btn-outline-secondary">Speak!</button>
+      <br><br>
+      <span id='message'></span>
+      <br><br>
+    </div>
+
+
+    <div class="container">
+        <!-- From -->
+        <div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
+          <div class="card-header">From:</div>
+          <div class="card-body">
+            <!-- <h4 class="card-title">Danger card title</h4> -->
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+
+        <!-- To -->
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+          <div class="card-header">To:</div>
+          <div class="card-body">
+            <!-- <h4 class="card-title"> </h4> -->
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        var message = document.querySelector('#message');
+
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+
+        var grammar = '#JSGF V1.0;'
+
+        var recognition = new SpeechRecognition();
+        var speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
+        recognition.grammars = speechRecognitionList;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        recognition.onresult = function(event) {
+            var last = event.results.length - 1;
+            var command = event.results[last][0].transcript;
+            var d = {};
+            d['text'] = command
+            console.log("d", d);
+            message.textContent = 'Voice Input: ' + command + '.';
+            $.ajax({
+
+            // location.href = Flask.url_for('index', {});
+              data: JSON.stringify(d),   // converts js value to JSON string
+              type: 'POST',
+              url: '/translate',
+              })
+
+
+        };
+
+        recognition.onspeechend = function() {
+            recognition.stop();
+        };
+
+        recognition.onerror = function(event) {
+            message.textContent = 'Error occurred in recognition: ' + event.error;
+        }
+
+        document.querySelector('#btnGiveCommand').addEventListener('click', function(){
+            recognition.start();
+
+        });
+
+
+    </script>
+{% endblock %}

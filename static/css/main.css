@@ -1,0 +1,61 @@
+
+.speech {
+  width: 50%;
+  margin-left: 45%;
+  /* margin-right: 30%; */
+}
+
+#unsplash {
+  margin: 10px;
+  padding: 10px;
+  width: 25%;
+  height: 25%;
+  position: relative;
+  left: 5%;
+}
+.support {
+  width: 50%;
+  /* display: flex;
+  flex-direction: column; */
+  position:absolute;
+  top: 15%;
+  right: 10%;
+  background-color: #a7d8de;
+}
+
+
+h2 {
+  text-align: center;
+  font-family: 'Sriracha', cursive;
+  font-size: 50px;
+}
+
+ul > li > h1 {
+  text-align: center;
+  font-family: 'Sriracha', cursive;
+  font-size: 50px;
+}
+
+ul > li > h4 {
+  font-family: 'Open+Sans';
+  font-size: 20px;
+  font-weight: 1000;
+  color: black;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: Space-around;
+}
+
+.page-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #D8D8D8;
+  color: white;
+  text-align: center;
+}
